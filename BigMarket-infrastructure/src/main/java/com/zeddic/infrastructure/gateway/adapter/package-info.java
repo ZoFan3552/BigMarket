@@ -1,0 +1,1 @@
+package com.zeddic.infrastructure.gateway.adapter;
