@@ -11,11 +11,41 @@
  Target Server Version : 80032 (8.0.32)
  File Encoding         : 65001
 
- Date: 15/07/2024 21:54:07
+ Date: 16/07/2024 15:24:22
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for award
+-- ----------------------------
+DROP TABLE IF EXISTS `award`;
+CREATE TABLE `award` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+  `award_id` int NOT NULL COMMENT '抽奖奖品ID,内部流转',
+  `award_key` varchar(32) NOT NULL COMMENT '奖品对接标识',
+  `award_config` varchar(32) NOT NULL COMMENT '奖品配置信息',
+  `award_desc` varchar(128) NOT NULL COMMENT '奖品内容描述',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- ----------------------------
+-- Records of award
+-- ----------------------------
+BEGIN;
+INSERT INTO `award` (`id`, `award_id`, `award_key`, `award_config`, `award_desc`, `create_time`, `update_time`) VALUES (1, 101, 'user_credit_random', '1,100', '用户积分', '2024-07-16 15:20:05', '2024-07-16 15:20:05');
+INSERT INTO `award` (`id`, `award_id`, `award_key`, `award_config`, `award_desc`, `create_time`, `update_time`) VALUES (2, 102, 'openai_use_count', '5', 'OpenAI 增加使用次数', '2024-07-16 15:20:42', '2024-07-16 15:20:42');
+INSERT INTO `award` (`id`, `award_id`, `award_key`, `award_config`, `award_desc`, `create_time`, `update_time`) VALUES (3, 103, 'openai_use_count', '10', 'OpenAI 增加使用次数', '2024-07-16 15:22:33', '2024-07-16 15:22:33');
+INSERT INTO `award` (`id`, `award_id`, `award_key`, `award_config`, `award_desc`, `create_time`, `update_time`) VALUES (4, 104, 'openai_use_count', '20', 'OpenAI 增加使用次数', '2024-07-16 15:22:35', '2024-07-16 15:22:35');
+INSERT INTO `award` (`id`, `award_id`, `award_key`, `award_config`, `award_desc`, `create_time`, `update_time`) VALUES (5, 105, 'open_ai_model', 'gpt-4', 'OpenAI 增加模型', '2024-07-16 15:24:03', '2024-07-16 15:24:03');
+INSERT INTO `award` (`id`, `award_id`, `award_key`, `award_config`, `award_desc`, `create_time`, `update_time`) VALUES (6, 106, 'open_ai_model', 'dall-e-2', 'OpenAI 增加模型', '2024-07-16 15:24:03', '2024-07-16 15:24:03');
+INSERT INTO `award` (`id`, `award_id`, `award_key`, `award_config`, `award_desc`, `create_time`, `update_time`) VALUES (7, 107, 'open_ai_model', 'dall-e-3', 'OpenAI 增加模型', '2024-07-16 15:24:04', '2024-07-16 15:24:04');
+INSERT INTO `award` (`id`, `award_id`, `award_key`, `award_config`, `award_desc`, `create_time`, `update_time`) VALUES (8, 108, 'openai_use_count', '100', 'OpenAI 增加使用次数', '2024-07-16 15:23:50', '2024-07-16 15:23:50');
+INSERT INTO `award` (`id`, `award_id`, `award_key`, `award_config`, `award_desc`, `create_time`, `update_time`) VALUES (9, 109, 'open_ai_model', 'gpt-4,dall-e-2,dall-e-3', 'OpenAI 增加模型', '2024-07-16 15:24:07', '2024-07-16 15:24:07');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for strategy
