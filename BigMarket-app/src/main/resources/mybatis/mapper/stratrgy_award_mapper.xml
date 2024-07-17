@@ -19,7 +19,21 @@
 
 
     <select id="queryStrategyAwardList" resultMap="dataMap">
-        SELECT astrategy_id FROM strategy_award;
+        SELECT strategy_id,
+               award_id,
+               award_count,
+               award_count_surplus,
+               award_rate
+        FROM strategy_award;
+    </select>
+
+    <select id="queryStrategyAwardListByStrategyId"  parameterType="Long" resultMap="dataMap">
+        SELECT strategy_id,
+            award_id,
+            award_count,
+            award_count_surplus,
+            award_rate
+            FROM strategy_award WHERE strategy_id = #{strategy_id};
     </select>
 
 </mapper>
