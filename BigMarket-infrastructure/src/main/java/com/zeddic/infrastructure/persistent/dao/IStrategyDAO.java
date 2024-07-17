@@ -13,4 +13,6 @@ import java.util.List;
 @Mapper
 public interface IStrategyDAO {
     List<StrategyPO> queryStrategyList();
+
+    StrategyPO queryStrategyByStrategyId(Long strategyId);
 }

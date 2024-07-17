@@ -33,7 +33,7 @@
             award_count,
             award_count_surplus,
             award_rate
-            FROM strategy_award WHERE strategy_id = #{strategy_id};
+            FROM strategy_award WHERE strategy_id = #{strategyId};
     </select>
 
 </mapper>

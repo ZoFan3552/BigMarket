@@ -7,7 +7,12 @@ package com.zeddic.domain.strategy.service;
  * @date: 2024/7/16 下午5:20
  */
 public interface IStrategyArmory {
+    /**
+     * 根据策略ID去进行装配
+     * @param strategyId 策略ID
+     * @return 抽奖结果
+     */
     boolean assembleLotteryStrategy(Long strategyId);
 
-    Integer getRandomAwardId(Long strategyId);
+
 }
