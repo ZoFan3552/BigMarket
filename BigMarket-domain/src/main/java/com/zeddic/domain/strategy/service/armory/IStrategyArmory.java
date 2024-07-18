@@ -1,4 +1,4 @@
-package com.zeddic.domain.strategy.service;
+package com.zeddic.domain.strategy.service.armory;
 
 
 /**

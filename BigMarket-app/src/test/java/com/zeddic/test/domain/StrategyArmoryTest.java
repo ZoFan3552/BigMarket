@@ -1,7 +1,7 @@
 package com.zeddic.test.domain;
 
-import com.zeddic.domain.strategy.service.IStrategyArmory;
-import com.zeddic.domain.strategy.service.IStrategyDispatch;
+import com.zeddic.domain.strategy.service.armory.IStrategyArmory;
+import com.zeddic.domain.strategy.service.armory.IStrategyDispatch;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +10,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;
-import java.lang.ref.PhantomReference;
 
 /**
  * @author: zeddic

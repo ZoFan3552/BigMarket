@@ -1,4 +1,4 @@
-package com.zeddic.domain.strategy.service;
+package com.zeddic.domain.strategy.service.armory;
 
 import com.zeddic.domain.strategy.model.entity.StrategyAwardEntity;
 import com.zeddic.domain.strategy.model.entity.StrategyEntity;

@@ -12,11 +12,9 @@ import com.zeddic.infrastructure.persistent.po.StrategyPO;
 import com.zeddic.infrastructure.persistent.po.StrategyRulePO;
 import com.zeddic.infrastructure.persistent.redis.IRedisService;
 import com.zeddic.types.common.Constants;
-import org.redisson.api.RMap;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
-import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -113,19 +111,28 @@ public class StrategyRepository implements IStrategyRepository {
 
     @Override
     public StrategyRuleEntity queryStrategyRule(Long strategyId, String ruleModel) {
-        if (strategyId == null) return null;
-        StrategyRulePO strategyRulePO = new StrategyRulePO();
-        strategyRulePO.setStrategyId(strategyId);
-        strategyRulePO.setRuleModel(ruleModel);
-        StrategyRulePO strategyRulePORes = strategyRuleDAO.queryStrategyRule(strategyRulePO);
+        StrategyRulePO strategyRuleReq = new StrategyRulePO();
+        strategyRuleReq.setStrategyId(strategyId);
+        strategyRuleReq.setRuleModel(ruleModel);
+        StrategyRulePO strategyRuleRes = strategyRuleDAO.queryStrategyRule(strategyRuleReq);
         return StrategyRuleEntity.builder()
-                .strategyId(strategyRulePORes.getStrategyId())
-                .awardId(strategyRulePORes.getAwardId())
-                .ruleType(strategyRulePORes.getRuleType())
-                .ruleModel(strategyRulePORes.getRuleModel())
-                .ruleValue(strategyRulePORes.getRuleValue())
-                .ruleDesc(strategyRulePORes.getRuleDesc())
+                .strategyId(strategyRuleRes.getStrategyId())
+                .awardId(strategyRuleRes.getAwardId())
+                .ruleType(strategyRuleRes.getRuleType())
+                .ruleModel(strategyRuleRes.getRuleModel())
+                .ruleValue(strategyRuleRes.getRuleValue())
+                .ruleDesc(strategyRuleRes.getRuleDesc())
                 .build();
+
+    }
+
+    @Override
+    public String queryStrategyRuleValue(Long strategyId, Integer awardId, String ruleModel) {
+        StrategyRulePO strategyRule = new StrategyRulePO();
+        strategyRule.setStrategyId(strategyId);
+        strategyRule.setAwardId(awardId);
+        strategyRule.setRuleModel(ruleModel);
+        return strategyRuleDAO.queryStrategyRuleValue(strategyRule);
     }
 
 }
