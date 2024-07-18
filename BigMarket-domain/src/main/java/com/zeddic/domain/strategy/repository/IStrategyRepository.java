@@ -4,8 +4,6 @@ import com.zeddic.domain.strategy.model.entity.StrategyAwardEntity;
 import com.zeddic.domain.strategy.model.entity.StrategyEntity;
 import com.zeddic.domain.strategy.model.entity.StrategyRuleEntity;
 
-import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
