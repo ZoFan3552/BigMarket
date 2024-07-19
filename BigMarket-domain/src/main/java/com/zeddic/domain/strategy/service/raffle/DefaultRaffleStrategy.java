@@ -56,9 +56,29 @@ public class DefaultRaffleStrategy extends AbstractRaffleStrategy {
             }
         }
 
+        // 白名单规则过滤
+        String ruleWhiteList = Arrays.stream(ruleModels)
+                .filter(str -> str.contains(DefaultLogicFactory.LogicModel.RULE_WHITELIST.getCode()))
+                .findFirst()
+                .orElse(null);
+
+        if (StringUtils.isNotBlank(ruleWhiteList)) {
+            ILogicFilter<RuleActionEntity.RaffleBeforeEntity> logicFilter =
+                    logicFilterGroup.get(DefaultLogicFactory.LogicModel.RULE_WHITELIST.getCode());
+            RuleMatterEntity ruleMatterEntity = new RuleMatterEntity();
+            ruleMatterEntity.setUserId(raffleFactorEntity.getUserId());
+            ruleMatterEntity.setStrategyId(raffleFactorEntity.getStrategyId());
+            ruleMatterEntity.setRuleModel(DefaultLogicFactory.LogicModel.RULE_WHITELIST.getCode());
+            RuleActionEntity<RuleActionEntity.RaffleBeforeEntity> ruleActionEntity = logicFilter.filter(ruleMatterEntity);
+            if (!RuleLogicCheckTypeVO.ALLOW.getCode().equals(ruleActionEntity.getCode())) {
+                return ruleActionEntity;
+            }
+        }
+
         // 顺序过滤剩余规则
         List<String> ruleModelList = Arrays.stream(ruleModels)
                 .filter(s -> !s.equals(DefaultLogicFactory.LogicModel.RULE_BLACKLIST.getCode()))
+                .filter(s -> !s.equals(DefaultLogicFactory.LogicModel.RULE_WHITELIST.getCode()))
                 .collect(Collectors.toList());
 
         RuleActionEntity<RuleActionEntity.RaffleBeforeEntity> ruleActionEntity = null;

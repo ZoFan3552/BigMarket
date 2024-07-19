@@ -53,6 +53,11 @@ public abstract class AbstractRaffleStrategy implements IRaffleStrategy {
                 return RaffleAwardEntity.builder()
                         .awardId(ruleActionEntity.getData().getAwardId())
                         .build();
+            } else if (DefaultLogicFactory.LogicModel.RULE_WHITELIST.getCode().equals(ruleActionEntity.getRuleModel())) {
+                // 白名单返回固定的奖品ID
+                return RaffleAwardEntity.builder()
+                        .awardId(ruleActionEntity.getData().getAwardId())
+                        .build();
             } else if (DefaultLogicFactory.LogicModel.RULE_WIGHT.getCode().equals(ruleActionEntity.getRuleModel())) {
                 // 权重根据返回的信息进行抽奖
                 RuleActionEntity.RaffleBeforeEntity raffleBeforeEntity = ruleActionEntity.getData();

@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.zeddic.domain.strategy.model.entity.RaffleAwardEntity;
 import com.zeddic.domain.strategy.model.entity.RaffleFactorEntity;
 import com.zeddic.domain.strategy.service.IRaffleStrategy;
+import com.zeddic.domain.strategy.service.armory.IStrategyArmory;
 import com.zeddic.domain.strategy.service.rule.impl.RuleWeightLogicFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
@@ -29,6 +30,11 @@ public class RaffleStrategyTest {
     private IRaffleStrategy raffleStrategy;
 
     @Resource
+    private IStrategyArmory strategyArmory;
+
+
+
+    @Resource
     private RuleWeightLogicFilter ruleWeightLogicFilter;
 
     @Before
@@ -36,6 +42,11 @@ public class RaffleStrategyTest {
         ReflectionTestUtils.setField(ruleWeightLogicFilter, "userScore", 4000L);
     }
 
+    @Test
+    public void test_strategyArmory(){
+        boolean success = strategyArmory.assembleLotteryStrategy(100001L);
+        log.info("测试结果：{}" , success);
+    }
     @Test
     public void test_performRaffle() {
         RaffleFactorEntity raffleFactorEntity = RaffleFactorEntity.builder()
@@ -53,6 +64,19 @@ public class RaffleStrategyTest {
     public void test_performRaffle_blacklist() {
         RaffleFactorEntity raffleFactorEntity = RaffleFactorEntity.builder()
                 .userId("user003")  // 黑名单用户 user001,user002,user003
+                .strategyId(100001L)
+                .build();
+
+        RaffleAwardEntity raffleAwardEntity = raffleStrategy.performRaffle(raffleFactorEntity);
+
+        log.info("请求参数：{}", JSON.toJSONString(raffleFactorEntity));
+        log.info("测试结果：{}", JSON.toJSONString(raffleAwardEntity));
+    }
+
+    @Test
+    public void test_performRaffle_whitelist() {
+        RaffleFactorEntity raffleFactorEntity = RaffleFactorEntity.builder()
+                .userId("zeddic")  // 白名单用户 zeddic
                 .strategyId(100001L)
                 .build();
 
