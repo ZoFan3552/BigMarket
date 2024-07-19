@@ -35,7 +35,7 @@ public class StrategyArmoryDispatchImpl implements IStrategyArmory ,IStrategyDis
         StrategyEntity strategyEntity = strategyRepository.queryStrategyEntityByStrategyId(strategyId);
         String ruleWeight = strategyEntity.getRuleWeight();
         if (null == ruleWeight || ruleWeight.isEmpty()) {
-            return false;
+            return true;
         }
 
         StrategyRuleEntity strategyRuleEntity = strategyRepository.queryStrategyRule(strategyId , ruleWeight);

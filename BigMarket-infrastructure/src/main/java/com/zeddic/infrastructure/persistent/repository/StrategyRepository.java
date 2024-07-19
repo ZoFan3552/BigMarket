@@ -3,10 +3,12 @@ package com.zeddic.infrastructure.persistent.repository;
 import com.zeddic.domain.strategy.model.entity.StrategyAwardEntity;
 import com.zeddic.domain.strategy.model.entity.StrategyEntity;
 import com.zeddic.domain.strategy.model.entity.StrategyRuleEntity;
+import com.zeddic.domain.strategy.model.vo.StrategyAwardRuleModelVO;
 import com.zeddic.domain.strategy.repository.IStrategyRepository;
 import com.zeddic.infrastructure.persistent.dao.IStrategyAwardDAO;
 import com.zeddic.infrastructure.persistent.dao.IStrategyDAO;
 import com.zeddic.infrastructure.persistent.dao.IStrategyRuleDAO;
+import com.zeddic.infrastructure.persistent.po.AwardPO;
 import com.zeddic.infrastructure.persistent.po.StrategyAwardPO;
 import com.zeddic.infrastructure.persistent.po.StrategyPO;
 import com.zeddic.infrastructure.persistent.po.StrategyRulePO;
@@ -133,6 +135,15 @@ public class StrategyRepository implements IStrategyRepository {
         strategyRule.setAwardId(awardId);
         strategyRule.setRuleModel(ruleModel);
         return strategyRuleDAO.queryStrategyRuleValue(strategyRule);
+    }
+
+    @Override
+    public StrategyAwardRuleModelVO queryStrategyAwardRuleModel(Long strategyId, Integer awardId) {
+        StrategyAwardPO strategyAwardPO = new StrategyAwardPO();
+        strategyAwardPO.setStrategyId(strategyId);
+        strategyAwardPO.setAwardId(awardId);
+        String ruleModel = strategyAwardDAO.queryStrategyAwardRuleModel(strategyAwardPO);
+        return new StrategyAwardRuleModelVO(ruleModel);
     }
 
 }

@@ -27,10 +27,11 @@ public class StrategyArmoryTest {
     @Resource
     private IStrategyDispatch strategyDispatch;
 
-    @Before
+    @Test
     public void test_strategyArmory(){
-        boolean success = strategyArmory.assembleLotteryStrategy(100001L);
-        log.info("测试结果：{}" , success);
+        log.info("测试结果：{}" , strategyArmory.assembleLotteryStrategy(100001L));
+        log.info("测试结果：{}" , strategyArmory.assembleLotteryStrategy(100002L));
+        log.info("测试结果：{}" , strategyArmory.assembleLotteryStrategy(100003L));
     }
 
     @Test

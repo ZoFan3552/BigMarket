@@ -36,4 +36,9 @@
             FROM strategy_award WHERE strategy_id = #{strategyId};
     </select>
 
+    <select id="queryStrategyAwardRuleModel"  parameterType="com.zeddic.infrastructure.persistent.po.StrategyAwardPO" resultType="String">
+        SELECT rule_models
+        FROM strategy_award WHERE strategy_id = #{strategyId} AND award_id = #{awardId};
+    </select>
+
 </mapper>
