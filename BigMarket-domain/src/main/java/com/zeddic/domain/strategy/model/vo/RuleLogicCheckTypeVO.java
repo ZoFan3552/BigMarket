@@ -5,7 +5,7 @@ import lombok.Getter;
 
 /**
  * @author: zeddic
- * @description:
+ * @description: 标记抽奖的行为特征
  * @date: 2024/7/17 下午9:38
  */
 @Getter

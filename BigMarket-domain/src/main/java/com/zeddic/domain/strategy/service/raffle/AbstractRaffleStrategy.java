@@ -73,5 +73,5 @@ public abstract class AbstractRaffleStrategy implements IRaffleStrategy {
     }
 
     protected abstract RuleActionEntity<RuleActionEntity.RaffleBeforeEntity>
-    doCheckRaffleBeforeLogic(RaffleFactorEntity raffleFactorEntity , String ...logics);
+    doCheckRaffleBeforeLogic(RaffleFactorEntity raffleFactorEntity , String[] ruleModels);
 }
