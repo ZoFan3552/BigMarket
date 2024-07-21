@@ -1,8 +1,8 @@
-package com.zeddic.domain.strategy.service.rule.factory;
+package com.zeddic.domain.strategy.service.rule.filter.factory;
 
 import com.zeddic.domain.strategy.model.entity.RuleActionEntity;
 import com.zeddic.domain.strategy.service.annotation.LogicStrategy;
-import com.zeddic.domain.strategy.service.rule.ILogicFilter;
+import com.zeddic.domain.strategy.service.rule.filter.ILogicFilter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.core.annotation.AnnotationUtils;
@@ -48,13 +48,15 @@ public class DefaultLogicFactory {
         private final String code;
         private final String info;
         private final String type;
+
+        public static boolean isDuring(String code){
+            return "during".equals(LogicModel.valueOf(code.toUpperCase()).type);
+        }
+
+        public static boolean isAfter(String code){
+            return "after".equals(LogicModel.valueOf(code.toUpperCase()).type);
+        }
     }
 
-    public static boolean isDuring(String code){
-        return "during".equals(LogicModel.valueOf(code.toUpperCase()).type);
-    }
 
-    public static boolean isAfter(String code){
-        return "after".equals(LogicModel.valueOf(code.toUpperCase()).type);
-    }
 }

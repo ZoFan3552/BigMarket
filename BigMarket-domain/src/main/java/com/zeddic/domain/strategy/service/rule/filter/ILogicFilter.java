@@ -1,4 +1,4 @@
-package com.zeddic.domain.strategy.service.rule;
+package com.zeddic.domain.strategy.service.rule.filter;
 
 import com.zeddic.domain.strategy.model.entity.RuleActionEntity;
 import com.zeddic.domain.strategy.model.entity.RuleMatterEntity;

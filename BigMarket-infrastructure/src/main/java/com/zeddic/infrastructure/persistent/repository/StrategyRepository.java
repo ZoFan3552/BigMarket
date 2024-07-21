@@ -129,6 +129,11 @@ public class StrategyRepository implements IStrategyRepository {
     }
 
     @Override
+    public String queryStrategyRuleValue(Long strategyId, String ruleModel) {
+        return queryStrategyRuleValue(strategyId , null , ruleModel);
+    }
+
+    @Override
     public String queryStrategyRuleValue(Long strategyId, Integer awardId, String ruleModel) {
         StrategyRulePO strategyRule = new StrategyRulePO();
         strategyRule.setStrategyId(strategyId);
@@ -138,7 +143,7 @@ public class StrategyRepository implements IStrategyRepository {
     }
 
     @Override
-    public StrategyAwardRuleModelVO queryStrategyAwardRuleModel(Long strategyId, Integer awardId) {
+    public StrategyAwardRuleModelVO queryStrategyAwardRuleModelVO(Long strategyId, Integer awardId) {
         StrategyAwardPO strategyAwardPO = new StrategyAwardPO();
         strategyAwardPO.setStrategyId(strategyId);
         strategyAwardPO.setAwardId(awardId);

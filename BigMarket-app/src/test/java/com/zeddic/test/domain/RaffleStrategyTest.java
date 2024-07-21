@@ -5,9 +5,8 @@ import com.zeddic.domain.strategy.model.entity.RaffleAwardEntity;
 import com.zeddic.domain.strategy.model.entity.RaffleFactorEntity;
 import com.zeddic.domain.strategy.service.IRaffleStrategy;
 import com.zeddic.domain.strategy.service.armory.IStrategyArmory;
-import com.zeddic.domain.strategy.service.armory.IStrategyDispatch;
-import com.zeddic.domain.strategy.service.rule.impl.RuleLockLogicFilter;
-import com.zeddic.domain.strategy.service.rule.impl.RuleWeightLogicFilter;
+import com.zeddic.domain.strategy.service.rule.chain.impl.RuleWeightLogicChain;
+import com.zeddic.domain.strategy.service.rule.filter.impl.RuleLockLogicFilter;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,11 +34,7 @@ public class RaffleStrategyTest {
     private IStrategyArmory strategyArmory;
 
     @Resource
-    private IStrategyDispatch strategyDispatch;
-
-    @Resource
-    private RuleWeightLogicFilter ruleWeightLogicFilter;
-
+    private RuleWeightLogicChain ruleWeightLogicChain;
     @Resource
     private RuleLockLogicFilter ruleLockLogicFilter;
 
@@ -49,7 +44,7 @@ public class RaffleStrategyTest {
         log.info("装配结果：{}" ,strategyArmory.assembleLotteryStrategy(100001L));
         log.info("装配结果：{}" ,strategyArmory.assembleLotteryStrategy(100002L));
         log.info("装配结果：{}" ,strategyArmory.assembleLotteryStrategy(100003L));
-        ReflectionTestUtils.setField(ruleWeightLogicFilter, "userScore", 4000L);
+        ReflectionTestUtils.setField(ruleWeightLogicChain, "userScore", 5000L);
         ReflectionTestUtils.setField(ruleLockLogicFilter, "userRaffleCount", 10L);
     }
 
