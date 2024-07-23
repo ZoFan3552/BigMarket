@@ -2,12 +2,8 @@ package com.zeddic.domain.strategy.service;
 
 import com.zeddic.domain.strategy.model.entity.RaffleAwardEntity;
 import com.zeddic.domain.strategy.model.entity.RaffleFactorEntity;
-import com.zeddic.domain.strategy.model.entity.RuleActionEntity;
-import com.zeddic.domain.strategy.model.vo.RuleLogicCheckTypeVO;
-import com.zeddic.domain.strategy.model.vo.StrategyAwardRuleModelVO;
 import com.zeddic.domain.strategy.repository.IStrategyRepository;
 import com.zeddic.domain.strategy.service.armory.IStrategyDispatch;
-import com.zeddic.domain.strategy.service.rule.chain.ILogicChain;
 import com.zeddic.domain.strategy.service.rule.chain.factory.DefaultChainFactory;
 import com.zeddic.domain.strategy.service.rule.tree.factory.DefaultTreeFactory;
 import com.zeddic.types.enums.ResponseCode;
@@ -21,7 +17,7 @@ import org.apache.commons.lang3.StringUtils;
  * @date: 2024/7/17 下午9:15
  */
 @Slf4j
-public abstract class AbstractRaffleStrategy implements IRaffleStrategy {
+public abstract class AbstractRaffleStrategy implements IRaffleStrategy,IRaffleStock {
 
     // 策略仓储服务 -> domain层像一个大厨，仓储层提供米面粮油
     protected IStrategyRepository repository;

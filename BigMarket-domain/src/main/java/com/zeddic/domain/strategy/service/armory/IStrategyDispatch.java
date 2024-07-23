@@ -30,4 +30,6 @@ public interface IStrategyDispatch {
      */
     Integer getRandomAwardId(String key);
 
+    Boolean reduceAwardStock(Long strategyId,Integer awardId);
+
 }

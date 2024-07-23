@@ -1,7 +1,5 @@
 package com.zeddic.infrastructure.persistent.dao;
 
-import com.zeddic.domain.strategy.model.vo.StrategyAwardRuleModelVO;
-import com.zeddic.infrastructure.persistent.po.AwardPO;
 import com.zeddic.infrastructure.persistent.po.StrategyAwardPO;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -17,4 +15,5 @@ public interface IStrategyAwardDAO {
     List<StrategyAwardPO> queryStrategyAwardList();
     List<StrategyAwardPO> queryStrategyAwardListByStrategyId(Long strategyId);
     String queryStrategyAwardRuleModel(StrategyAwardPO strategyAwardPO);
+    void updateStrategyAwardStock(StrategyAwardPO strategyAwardPO);
 }

@@ -20,7 +20,7 @@ import java.util.Map;
 @Slf4j
 public class DecisionTreeEngine implements IDecisionTreeEngine {
 
-    private final Map<String  , ILogicTreeNode> logicTreeGroup;
+    private final Map<String, ILogicTreeNode> logicTreeGroup;
 
     private final RuleTreeVO ruleTreeVO;
 
@@ -36,32 +36,37 @@ public class DecisionTreeEngine implements IDecisionTreeEngine {
         String nextNode = ruleTreeVO.getTreeRootRuleNode();
         Map<String, RuleTreeNodeVO> treeNodeMap = ruleTreeVO.getTreeNodeMap();
         RuleTreeNodeVO ruleTreeNode = treeNodeMap.get(nextNode);
-        while (null != nextNode){
+        while (null != nextNode) {
+            //获取决策树节点
             ILogicTreeNode logicTreeNode = logicTreeGroup.get(ruleTreeNode.getRuleKey());
+            String ruleValue = ruleTreeNode.getRuleValue();
 
-            DefaultTreeFactory.TreeActionEntity logicEntity = logicTreeNode.logic(userId, strategyId, awardId);
+            //决策点计算
+            DefaultTreeFactory.TreeActionEntity logicEntity = logicTreeNode.logic(userId, strategyId, awardId, ruleValue);
             RuleLogicCheckTypeVO ruleLogicCheckType = logicEntity.getRuleLogicCheckType();
             strategyAwardVO = logicEntity.getStrategyAwardVO();
             log.info("决策树引擎【{}】treeId:{} node:{} code:{}", ruleTreeVO.getTreeName(), ruleTreeVO.getTreeId(), nextNode, ruleLogicCheckType.getCode());
-            nextNode = nextNode(ruleLogicCheckType.getCode() , ruleTreeNode.getTreeNodeLineVOList());
+            nextNode = nextNode(ruleLogicCheckType.getCode(), ruleTreeNode.getTreeNodeLineVOList());
             ruleTreeNode = treeNodeMap.get(nextNode);
         }
         //返回最终结果
         return strategyAwardVO;
     }
 
-    private String nextNode(String matterValue , List<RuleTreeNodeLineVO> ruleTreeNodeLineVOList){
+    private String nextNode(String matterValue, List<RuleTreeNodeLineVO> ruleTreeNodeLineVOList) {
         if (null == ruleTreeNodeLineVOList || ruleTreeNodeLineVOList.isEmpty()) return null;
         for (RuleTreeNodeLineVO nodeLine : ruleTreeNodeLineVOList) {
-            if (decisionLogic(matterValue , nodeLine)){
+            if (decisionLogic(matterValue, nodeLine)) {
                 return nodeLine.getRuleNodeTo();
             }
         }
-        throw new RuntimeException("决策树引擎配置配置错误，未找到可执行节点");
+        log.error("决策树引擎配置配置错误，未找到可执行节点");
+//        throw new RuntimeException("决策树引擎配置配置错误，未找到可执行节点");
+        return null;
     }
 
-    public boolean decisionLogic(String matterValue, RuleTreeNodeLineVO nodeLine){
-        switch (nodeLine.getRuleLimitType()){
+    public boolean decisionLogic(String matterValue, RuleTreeNodeLineVO nodeLine) {
+        switch (nodeLine.getRuleLimitType()) {
             case EQUAL:
                 return matterValue.equals(nodeLine.getRuleLimitValue().getCode());
             //以下规则暂时不用实现

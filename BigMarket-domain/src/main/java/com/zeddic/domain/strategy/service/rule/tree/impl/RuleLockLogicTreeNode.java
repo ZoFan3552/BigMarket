@@ -15,10 +15,28 @@ import org.springframework.stereotype.Component;
 @Component("rule_lock")
 public class RuleLockLogicTreeNode implements ILogicTreeNode {
 
+    public Long userRaffleCount = 10L;
     @Override
-    public DefaultTreeFactory.TreeActionEntity logic(String userId, Long strategyId, Integer awardId) {
+    public DefaultTreeFactory.TreeActionEntity logic(String userId, Long strategyId, Integer awardId , String ruleValue) {
+        log.info("规则过滤-次数锁 userId:{} strategyId:{} awardId:{}", userId, strategyId, awardId);
+
+        long raffleCount = 0L;
+        try {
+            raffleCount = Long.parseLong(ruleValue);
+        }catch (Exception e){
+            throw  new RuntimeException("规则过滤-次数锁异常 ruleValue="+ruleValue + " 配置不正确");
+        }
+
+        if (userRaffleCount >= raffleCount){
+            log.info("规则过滤-次数锁-次数达标，放行 userId:{} strategyId:{} awardId:{}", userId, strategyId, awardId);
+            return DefaultTreeFactory.TreeActionEntity.builder()
+                    .ruleLogicCheckType(RuleLogicCheckTypeVO.ALLOW)
+                    .build();
+        }
+
+        log.info("规则过滤-次数锁-次数不达标，拦截 userId:{} strategyId:{} awardId:{}", userId, strategyId, awardId);
         return DefaultTreeFactory.TreeActionEntity.builder()
-                .ruleLogicCheckType(RuleLogicCheckTypeVO.ALLOW)
+                .ruleLogicCheckType(RuleLogicCheckTypeVO.TAKE_OVER)
                 .build();
     }
 }

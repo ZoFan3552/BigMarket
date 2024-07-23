@@ -1,7 +1,5 @@
 package com.zeddic.infrastructure.persistent.redis;
 
-import org.redisson.api.RedissonClient;
-
 import org.redisson.api.*;
 import org.springframework.stereotype.Service;
 
@@ -165,6 +163,22 @@ public class RedissonService implements IRedisService {
     @Override
     public <T> RBloomFilter<T> getBloomFilter(String key) {
         return redissonClient.getBloomFilter(key);
+    }
+
+    @Override
+    public Long getAtomicLong(String cacheKey) {
+        return redissonClient.getAtomicLong(cacheKey).get();
+    }
+
+    @Override
+    public void setAtomicLong(String cacheKey, Integer value) {
+        redissonClient.getAtomicLong(cacheKey).set(value);
+    }
+
+    //分布式锁，后续可根据活动时间俺添加过期时间
+    @Override
+    public Boolean setNX(String lockKey) {
+        return redissonClient.getBucket(lockKey).setIfAbsent("lock");
     }
 
 }

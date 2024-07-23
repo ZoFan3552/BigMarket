@@ -246,4 +246,19 @@ public interface IRedisService {
     <T> RBloomFilter<T> getBloomFilter(String key);
 
 
+    /**
+     *
+     * @param cacheKey key
+     * @return 原子式获取 Long 值
+     */
+    Long getAtomicLong(String cacheKey);
+
+    /**
+     *
+     * @param cacheKey key
+     * @param value 新的值
+     */
+    void setAtomicLong(String cacheKey, Integer value);
+
+    Boolean setNX(String lockKey);
 }
