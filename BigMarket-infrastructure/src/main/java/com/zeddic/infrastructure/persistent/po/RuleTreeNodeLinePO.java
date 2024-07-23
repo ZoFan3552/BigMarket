@@ -1,20 +1,18 @@
-package com.zeddic.domain.strategy.model.vo;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+package com.zeddic.infrastructure.persistent.po;
+
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
+import java.util.Date;
 
 /**
  * @author: zeddic
  * @description:
- * @date: 2024/7/22 下午2:01
+ * @date: 2024/7/22 下午5:30
  */
 @Data
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
-public class RuleTreeNodeLineVO {
-
+public class RuleTreeNodeLinePO {
+    /** 自增ID */
+    private Long id;
     /** 规则树ID */
     private String treeId;
     /** 规则Key节点 From */
@@ -22,9 +20,12 @@ public class RuleTreeNodeLineVO {
     /** 规则Key节点 To */
     private String ruleNodeTo;
     /** 限定类型；1:=;2:>;3:<;4:>=;5<=;6:enum[枚举范围] */
-    private RuleLimitTypeVO ruleLimitType;
+    private String ruleLimitType;
     /** 限定值（到下个节点） */
-    private RuleLogicCheckTypeVO ruleLimitValue;
+    private String ruleLimitValue;
+    /** 创建时间 */
+    private Date createTime;
+    /** 更新时间 */
+    private Date updateTime;
 
 }
-

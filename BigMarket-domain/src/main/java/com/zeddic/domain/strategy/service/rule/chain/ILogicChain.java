@@ -1,5 +1,7 @@
 package com.zeddic.domain.strategy.service.rule.chain;
 
+import com.zeddic.domain.strategy.service.rule.chain.factory.DefaultChainFactory;
+
 /**
  * @author: zeddic
  * @description: 责任链接口
@@ -13,6 +15,6 @@ public interface ILogicChain extends ILogicArmory{
      * @param strategyID 策略ID
      * @return 奖品 ID
      */
-    Integer performRaffle(String userId , Long strategyID);
+    DefaultChainFactory.StrategyAwardVO performRaffle(String userId , Long strategyID);
 
 }

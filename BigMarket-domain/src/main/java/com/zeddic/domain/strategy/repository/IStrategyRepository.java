@@ -3,6 +3,7 @@ package com.zeddic.domain.strategy.repository;
 import com.zeddic.domain.strategy.model.entity.StrategyAwardEntity;
 import com.zeddic.domain.strategy.model.entity.StrategyEntity;
 import com.zeddic.domain.strategy.model.entity.StrategyRuleEntity;
+import com.zeddic.domain.strategy.model.vo.RuleTreeVO;
 import com.zeddic.domain.strategy.model.vo.StrategyAwardRuleModelVO;
 
 import java.util.List;
@@ -34,4 +35,6 @@ public interface IStrategyRepository {
     String queryStrategyRuleValue(Long strategyId, Integer awardId, String ruleModel);
 
     StrategyAwardRuleModelVO queryStrategyAwardRuleModelVO(Long strategyId, Integer awardId);
+
+    RuleTreeVO queryRuleTreeVOByTreeId(String treeId);
 }

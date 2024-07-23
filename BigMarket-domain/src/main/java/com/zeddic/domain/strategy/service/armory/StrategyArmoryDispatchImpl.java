@@ -31,19 +31,15 @@ public class StrategyArmoryDispatchImpl implements IStrategyArmory ,IStrategyDis
     public boolean assembleLotteryStrategy(Long strategyId) {
         // 1. 查询策略配置
         List<StrategyAwardEntity> strategyAwardEntities = strategyRepository.queryStrategyAwardList(strategyId);
-        assembleLotteryStrategy(String.valueOf(strategyId) , strategyAwardEntities);
+        assembleLotteryStrategy(String.valueOf(strategyId), strategyAwardEntities);
 
-        // 2. 权重规则配置
+        // 2. 权重策略配置 - 适用于 rule_weight 权重规则配置
         StrategyEntity strategyEntity = strategyRepository.queryStrategyEntityByStrategyId(strategyId);
         String ruleWeight = strategyEntity.getRuleWeight();
-        if (null == ruleWeight || ruleWeight.isEmpty()) {
-            return true;
-        }
-
-        StrategyRuleEntity strategyRuleEntity = strategyRepository.queryStrategyRule(strategyId , ruleWeight);
+        if (null == ruleWeight) return true;
+        StrategyRuleEntity strategyRuleEntity = strategyRepository.queryStrategyRule(strategyId, ruleWeight);
         if (null == strategyRuleEntity) {
-            throw new AppException(ResponseCode.STRATEGY_RULE_WEIGHT_IS_NULL.getCode()
-                    , ResponseCode.STRATEGY_RULE_WEIGHT_IS_NULL.getInfo());
+            throw new AppException(ResponseCode.STRATEGY_RULE_WEIGHT_IS_NULL.getCode(), ResponseCode.STRATEGY_RULE_WEIGHT_IS_NULL.getInfo());
         }
         Map<String, List<Integer>> ruleWeightValueMap = strategyRuleEntity.getRuleWeightValues();
         Set<String> keys = ruleWeightValueMap.keySet();
@@ -51,9 +47,11 @@ public class StrategyArmoryDispatchImpl implements IStrategyArmory ,IStrategyDis
             List<Integer> ruleWeightValues = ruleWeightValueMap.get(key);
             ArrayList<StrategyAwardEntity> strategyAwardEntitiesClone = new ArrayList<>(strategyAwardEntities);
             strategyAwardEntitiesClone.removeIf(entity -> !ruleWeightValues.contains(entity.getAwardId()));
-            assembleLotteryStrategy(String.valueOf(strategyId).concat("_").concat(key), strategyAwardEntitiesClone);
+            assembleLotteryStrategy(String.valueOf(strategyId).concat(Constants.UNDERLINE).concat(key), strategyAwardEntitiesClone);
         }
+
         return true;
+
 
     }
 
