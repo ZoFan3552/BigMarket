@@ -1,6 +1,6 @@
 /**
  * @author:     zeddic
- * @description:  转盘页面
+ * @description:  大营销九宫格
  * @date:    2024/7/24 下午1:35
  */
 "use client"

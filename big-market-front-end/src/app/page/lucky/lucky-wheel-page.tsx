@@ -1,6 +1,6 @@
 /**
  * @author:     zeddic
- * @description:  TODO
+ * @description:  大营销转盘
  * @date:    2024/7/24 下午1:36
  */
 "use client"
