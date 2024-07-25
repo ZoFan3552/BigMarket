@@ -95,7 +95,7 @@
     </dependencies>
 
     <build>
-        <finalName>BigMarket-app</finalName>
+        <finalName>big-market-app</finalName>
         <resources>
             <resource>
                 <directory>src/main/resources</directory>

@@ -1,5 +1,5 @@
 spring:
   config:
-    name: BigMarket-app
+    name: big-market-app
   profiles:
-    active: dev
+    active: prod
