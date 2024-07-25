@@ -7,9 +7,30 @@ import axios from 'axios';
 
 const apiHostURL = process.env.API_HOST_URL ? process.env.API_HOST_URL : '';
 
+export const strategyArmory = async (strategyId: number) => {
+    try {
+        const response = await axios.get(`${apiHostURL}/api/v1/raffle/strategy_armory?strategyId=${strategyId}`,{
+            headers:{
+                'Content-Type': 'application/json'
+            }
+        });
+        return response.data;
+    } catch (error) {
+        return {
+            code: "500",
+            info: "调用失败",
+            data: {}
+        };
+    }
+}
+
 export const queryRaffleAwardList = async (strategyId: number) => {
     try {
-        const response = await axios.get(`${apiHostURL}/api/v1/raffle/query_raffle_award_list?strategyId=${strategyId}&apipost_id=2cfe270eb9d002`);
+        const response = await axios.post(`${apiHostURL}/api/v1/raffle/query_raffle_award_list`, strategyId,{
+            headers:{
+                'Content-Type': 'application/json'
+            }
+        });
         return response.data;
     } catch (error) {
         return {
@@ -22,7 +43,11 @@ export const queryRaffleAwardList = async (strategyId: number) => {
 
 export const randomRaffle = async (strategyId: number) => {
     try {
-        const response = await axios.get(`${apiHostURL}/api/v1/raffle/random_raffle?strategyId=${strategyId}&apipost_id=2d00e7a039d012`);
+        const response = await axios.post(`${apiHostURL}/api/v1/raffle/random_raffle`, strategyId,{
+            headers:{
+                'Content-Type': 'application/json'
+            }
+        });
         return response.data;
     } catch (error) {
         return {

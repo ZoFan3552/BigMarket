@@ -3,7 +3,7 @@
  * @description:  大营销转盘
  * @date:    2024/7/24 下午1:36
  */
- "use client"
+"use client"
 
 import {queryRaffleAwardList, randomRaffle} from "@/apis/API";
 import React, {useState, useRef, useEffect} from 'react'
@@ -11,15 +11,18 @@ import React, {useState, useRef, useEffect} from 'react'
 import {LuckyWheel} from '@lucky-canvas/react'
 import {RaffleAwardType} from "@/types/RaffleAwardType";
 
-export function LuckyWheelPage() {
-    const strategyId = 10001
+
+
+export const LuckyWheelPage = () => {
     const [blocks] = useState([
         {padding: '10px', background: '#869cfa', imgs: [{src: "https://bugstack.cn/images/system/blog-03.png"}]}
     ])
 
-    const [prizes , setPrizes] = useState([])
+    const [prizes, setPrizes] = useState([])
 
     const queryRaffleAwardListHandler = async () => {
+        const queryParams = new URLSearchParams(window.location.search);
+        const strategyId = Number(queryParams.get('strategyId'));
         const result = await queryRaffleAwardList(strategyId);
         const {code, info, data} = result;
         if (code !== "0000") {
@@ -37,15 +40,17 @@ export function LuckyWheelPage() {
     }
 
     const randomRaffleHandler = async () => {
+        const queryParams = new URLSearchParams(window.location.search);
+        const strategyId = Number(queryParams.get('strategyId'));
         const result = await randomRaffle(strategyId);
         console.log(result);
         const {code, info, data} = result;
         if (code !== "0000") {
-            alert("获取随机奖品信息失败 code:" + code + " info：" + info);
+            alert("随机抽奖失败 code:" + code + " info：" + info);
             return;
         }
-
-        return data.awardId;
+        console.log(data);
+        return data.awardIndex - 1;
     }
     const [buttons] = useState([
         {radius: '40%', background: '#617df2'},
@@ -59,7 +64,8 @@ export function LuckyWheelPage() {
     const myLucky = useRef()
 
     useEffect(() => {
-        queryRaffleAwardListHandler().then(r => {})
+        queryRaffleAwardListHandler().then(r => {
+        })
     }, []);
     return <div>
         <LuckyWheel
@@ -82,7 +88,7 @@ export function LuckyWheelPage() {
             onEnd={
                 // @ts-ignore
                 prize => {
-                    alert('恭喜你抽到 ' + prize.fonts[0].text + ' 号奖品')
+                    alert('恭喜你抽到【' + prize.fonts[0].text + '】奖品ID【' + prize.fonts[0].id + '】')
                 }
             }
         />

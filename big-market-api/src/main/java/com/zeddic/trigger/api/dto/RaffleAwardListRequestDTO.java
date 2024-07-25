@@ -1,6 +1,10 @@
 package com.zeddic.trigger.api.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
 
 /**
  * @author: zeddic
@@ -8,7 +12,9 @@ import lombok.Data;
  * @date: 2024/7/24 下午7:34
  */
 @Data
-public class RaffleAwardListRequestDTO {
+@AllArgsConstructor
+@NoArgsConstructor
+public class RaffleAwardListRequestDTO implements Serializable {
     //抽奖策略ID
     private Long strategyId;
 }

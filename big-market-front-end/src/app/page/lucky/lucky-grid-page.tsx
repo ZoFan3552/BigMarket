@@ -22,26 +22,29 @@ interface Prize {
     y: number;
     fonts: Font[];
 }
-export function LuckyGridPage() {
-    const strategyId = 10001
+
+export const LuckyGridPage = () => {
+
     // 背景
     const [blocks] = useState([
         {padding: '10px', background: '#869cfa'}
     ])
 
 
-    const [prizes,setPrizes] = useState<Prize[]>([
-        {x: 0, y: 0, fonts: [{text: 'A', top: '35%'}]},
-        {x: 1, y: 0, fonts: [{text: 'B', top: '35%'}]},
-        {x: 2, y: 0, fonts: [{text: 'C', top: '35%'}]},
-        {x: 2, y: 1, fonts: [{text: 'D', top: '35%'}]},
-        {x: 2, y: 2, fonts: [{text: 'E', top: '35%'}]},
-        {x: 1, y: 2, fonts: [{text: 'F', top: '35%'}]},
-        {x: 0, y: 2, fonts: [{text: 'G', top: '35%'}]},
-        {x: 0, y: 1, fonts: [{text: 'H', top: '35%'}]},
+    const [prizes, setPrizes] = useState<Prize[]>([
+        {x: 0, y: 0, fonts: [{id: "0", text: 'A', top: '35%'}]},
+        {x: 1, y: 0, fonts: [{id: "0", text: 'B', top: '35%'}]},
+        {x: 2, y: 0, fonts: [{id: "0", text: 'C', top: '35%'}]},
+        {x: 2, y: 1, fonts: [{id: "0", text: 'D', top: '35%'}]},
+        {x: 2, y: 2, fonts: [{id: "0", text: 'E', top: '35%'}]},
+        {x: 1, y: 2, fonts: [{id: "0", text: 'F', top: '35%'}]},
+        {x: 0, y: 2, fonts: [{id: "0", text: 'G', top: '35%'}]},
+        {x: 0, y: 1, fonts: [{id: "0", text: 'H', top: '35%'}]},
     ])
 
     const queryRaffleAwardListHandler = async () => {
+        const queryParams = new URLSearchParams(window.location.search);
+        const strategyId = Number(queryParams.get('strategyId'));
         const result = await queryRaffleAwardList(strategyId);
         const {code, info, data} = result;
         if (code !== "0000") {
@@ -49,26 +52,27 @@ export function LuckyGridPage() {
             return;
         }
         console.log(data);
-        const updatedPrizes = prizes.map((prize:Prize , index:number) => {
+        const updatedPrizes = prizes.map((prize: Prize, index: number) => {
             const award: RaffleAwardType = data[index];
             return {
                 ...prize,
-                fonts:[{text: award.awardTitle , top: '35%'}]
+                fonts: [{id: award.awardId, text: award.awardTitle, top: '35%'}]
             }
         });
         setPrizes(updatedPrizes);
     }
 
     const randomRaffleHandler = async () => {
+        const queryParams = new URLSearchParams(window.location.search);
+        const strategyId = Number(queryParams.get('strategyId'));
         const result = await randomRaffle(strategyId);
-        console.log(result);
         const {code, info, data} = result;
         if (code !== "0000") {
             alert("获取随机奖品信息失败 code:" + code + " info：" + info);
             return;
         }
-
-        return data.awardId;
+        console.log(data)
+        return data.awardIndex - 1;
     }
 
     const [buttons] = useState([
@@ -80,7 +84,8 @@ export function LuckyGridPage() {
     const myLucky = useRef()
 
     useEffect(() => {
-        queryRaffleAwardListHandler().then(r => {})
+        queryRaffleAwardListHandler().then(r => {
+        })
     }, []);
 
     return <>
@@ -106,7 +111,7 @@ export function LuckyGridPage() {
             onEnd={
                 // @ts-ignore
                 prize => {
-                    alert('恭喜你抽到 ' + prize.fonts[0].text + ' 号奖品')
+                    alert('恭喜你抽到【' + prize.fonts[0].text + '】奖品ID【' + prize.fonts[0].id + '】')
                 }
             }>
 
