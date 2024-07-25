@@ -60,8 +60,7 @@ public class DecisionTreeEngine implements IDecisionTreeEngine {
                 return nodeLine.getRuleNodeTo();
             }
         }
-        log.error("决策树引擎配置配置错误，未找到可执行节点");
-//        throw new RuntimeException("决策树引擎配置配置错误，未找到可执行节点");
+        //没有节点就直接返回
         return null;
     }
 

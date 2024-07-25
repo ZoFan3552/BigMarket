@@ -1,10 +1,13 @@
 package com.zeddic.domain.strategy.service.raffle;
 
+import com.zeddic.domain.strategy.model.entity.StrategyAwardEntity;
 import com.zeddic.domain.strategy.model.vo.RuleTreeVO;
 import com.zeddic.domain.strategy.model.vo.StrategyAwardRuleModelVO;
 import com.zeddic.domain.strategy.model.vo.StrategyAwardStockKeyVO;
 import com.zeddic.domain.strategy.repository.IStrategyRepository;
 import com.zeddic.domain.strategy.service.AbstractRaffleStrategy;
+import com.zeddic.domain.strategy.service.IRaffleAward;
+import com.zeddic.domain.strategy.service.IRaffleStock;
 import com.zeddic.domain.strategy.service.armory.IStrategyDispatch;
 import com.zeddic.domain.strategy.service.rule.chain.ILogicChain;
 import com.zeddic.domain.strategy.service.rule.chain.factory.DefaultChainFactory;
@@ -13,6 +16,8 @@ import com.zeddic.domain.strategy.service.rule.tree.factory.engine.IDecisionTree
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author: zeddic
  * @description:
@@ -20,7 +25,7 @@ import org.springframework.stereotype.Service;
  */
 @Slf4j
 @Service
-public class DefaultRaffleStrategy extends AbstractRaffleStrategy {
+public class DefaultRaffleStrategy extends AbstractRaffleStrategy implements IRaffleAward, IRaffleStock {
     public DefaultRaffleStrategy(IStrategyRepository repository, IStrategyDispatch strategyDispatch, DefaultChainFactory defaultChainFactory, DefaultTreeFactory defaultTreeFactory) {
         super(repository, strategyDispatch, defaultChainFactory, defaultTreeFactory);
     }
@@ -54,5 +59,10 @@ public class DefaultRaffleStrategy extends AbstractRaffleStrategy {
     @Override
     public void updateStrategyAwardStock(Long strategyId, Integer awardId) {
         repository.updateStrategyAwardStock(strategyId, awardId);
+    }
+
+    @Override
+    public List<StrategyAwardEntity> queryRaffleStrategyAwardList(Long strategyId) {
+        return repository.queryStrategyAwardList(strategyId);
     }
 }

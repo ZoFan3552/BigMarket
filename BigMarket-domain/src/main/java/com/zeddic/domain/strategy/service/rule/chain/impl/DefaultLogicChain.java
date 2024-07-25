@@ -22,7 +22,7 @@ public class DefaultLogicChain extends AbstractLogicChain {
     @Override
     public DefaultChainFactory.StrategyAwardVO performRaffle(String userId, Long strategyID) {
         Integer awardId = strategyDispatch.getRandomAwardId(strategyID);
-        log.info("抽奖责任链-默认处理 userId:{} strategyId:{} ruleModel:{} awardID{}",
+        log.info("抽奖责任链-默认处理 userId:{} strategyId:{} ruleModel:{} awardID:{}",
                 userId, strategyID, ruleModel() , awardId);
         return DefaultChainFactory.StrategyAwardVO.builder()
                 .awardId(awardId)
