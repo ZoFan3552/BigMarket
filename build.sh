@@ -1,0 +1,1 @@
+docker build -t zeddic352/big-market-front-app:3.0 .
